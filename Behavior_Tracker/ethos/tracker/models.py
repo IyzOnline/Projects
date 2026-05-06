@@ -67,7 +67,7 @@ class LogEntry(models.Model):
                 raise ValidationError(f"An invalid metric was added: {key}")
             
         # Verify that the provided metrics have the correct type
-        for key, expected_type in actual_metrics.items():
+        for key, expected_type in expected_metrics.items():
             value = actual_metrics[key]
 
             if expected_type == 'integer' and not isinstance(key, int):
