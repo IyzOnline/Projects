@@ -7,6 +7,8 @@ class Behavior(models.Model):
     title = models.TextField(max_length=20)
     description = models.TextField(max_length=100)
 
+    expected_metrics = models.JSONField(default=dict, blank=True)
+
     def __str__(self):
         return self.title
 
@@ -17,6 +19,7 @@ class LogEntry(models.Model):
         on_delete=models.CASCADE,
         related_name='logs'
     )
+
     quality = models.IntegerField(
         validators=[
             MinValueValidator(0),
@@ -24,7 +27,10 @@ class LogEntry(models.Model):
         ],
         help_text="Rate how it went from 0 to 5."
     )
+
     special_note = models.TextField(max_length=250)
+
+    custom_metrics = models.JSONField(default=dict, blank=True)
     
     def __str__(self):
-        return f"{self.behavior.name} on {self.date}"
+        return f"{self.behavior.title} on {self.date}"
