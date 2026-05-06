@@ -70,10 +70,10 @@ class LogEntry(models.Model):
         for key, expected_type in expected_metrics.items():
             value = actual_metrics[key]
 
-            if expected_type == 'integer' and not isinstance(key, int):
+            if expected_type == 'integer' and not isinstance(value, int):
                 raise ValidationError(f"{key} must be of type 'int', instead got: {type(value).__name__}")
 
-            if expected_type == "string" and not isinstance(key, str):
+            if expected_type == "string" and not isinstance(value, str):
                 raise ValidationError(f"{key} must be of type 'str', instead got: {type(value).__name__}")
 
     def __str__(self):
