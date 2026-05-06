@@ -51,7 +51,7 @@ class LogEntry(models.Model):
         # is for future proofing because (1) the devs of Django might change the currently
         # empty clean method and (2) because I might create a Mixin class that LogEntry could
         # inherit from someday.
-        super.clean()
+        super().clean()
 
         expected_metrics = self.behavior.expected_metrics
         actual_metrics = self.custom_metrics
