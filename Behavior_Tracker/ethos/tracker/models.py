@@ -33,6 +33,19 @@ class LogEntry(models.Model):
 
     custom_metrics = models.JSONField(default=dict, blank=True)
 
+    class Meta:
+        # Q: why does Meta not need "()" or "(self)"?
+        # A: Typing "Meta()" is valid, but is unidiotmatic.
+        # Unidiomatic - fancy term meaning how it was designed failed to use Python's features and conventions
+        # Also, it is not a method, so it does not need "(self)".
+
+        ordering = '-date'
+        index = [
+            models.Index(fields=['behavior', '-date'], name='behavior_date_idx'),
+            models.Index(fields=['-date'], name='date_only_idx')
+        ]
+
+
     def clean(self):
         # From what I've learned, the reason why super.clean() should be called here
         # is for future proofing because (1) the devs of Django might change the currently
