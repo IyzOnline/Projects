@@ -39,8 +39,8 @@ class LogEntry(models.Model):
         # Unidiomatic - fancy term meaning how it was designed failed to use Python's features and conventions
         # Also, it is not a method, so it does not need "(self)".
 
-        ordering = '-date'
-        index = [
+        ordering = ['-date']
+        indexes = [
             models.Index(fields=['behavior', '-date'], name='behavior_date_idx'),
             models.Index(fields=['-date'], name='date_only_idx')
         ]
