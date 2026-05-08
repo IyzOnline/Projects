@@ -4,8 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ behavior.title }} Analytics</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 2rem; max-width: 900px; margin: auto; }
+        .chart-container { margin-top: 2rem; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; }
+    </style>
 </head>
 <body>
-    
+    <h1>{{ behavior.title }}</h1>
+    <p>{{ behavior.description }}</p>
+    <hr>
+
+    <!-- This is the canvas where the chart will be rendered -->
+    <div class="chart-container">
+        <canvas id="behaviorChart"></canvas>
+    </div>
+
+    <script>
+        const chartLabels = {{ date_data_X|safe }};
+        const chartDataPoints = {{ quality_data_Y|safe }};
+
+        const ctx = document.getElementById('behaviorChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: chartLabels, // X-Axis
+                datasets: [{
+                    label: 'Quality Score',
+                    data: chartDataPoints, // Y-Axis
+                    borderColor: 'rgb(59, 130, 246)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.3, //Adds smooth curve to the line
+                    fill: true, 
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 5, // make the graph's ceiling 5
+                        ticks: {
+                            stepSize: 1 // Forces Y-axis to show 1, 2, 3, 4, 5
+                        } 
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
