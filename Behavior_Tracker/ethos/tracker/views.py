@@ -12,7 +12,7 @@ def behavior_dashboard(request, behavior_id):
     present = timezone.now()
     date_seven_days_ago = present - timedelta(days=7)
     
-    past_week_logs = LogEntry.objects.filter(behavior, date__gte=date_seven_days_ago).order_by('date')
+    past_week_logs = LogEntry.objects.filter(behavior=behavior, date__gte=date_seven_days_ago).order_by('date')
 
     quality_data = []
     date_data = []
@@ -27,4 +27,4 @@ def behavior_dashboard(request, behavior_id):
         'date_data_X': date_data,
     }
 
-    render(request, 'tracker/dashboard.html', context)
+    return render(request, 'tracker/dashboard.html', context)
