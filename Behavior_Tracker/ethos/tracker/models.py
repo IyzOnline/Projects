@@ -29,7 +29,7 @@ class LogEntry(models.Model):
         help_text="Rate how it went from 0 to 5."
     )
 
-    special_note = models.TextField(max_length=250)
+    special_note = models.TextField(max_length=250, blank=True)
 
     custom_metrics = models.JSONField(default=dict, blank=True)
 
