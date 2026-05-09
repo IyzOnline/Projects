@@ -5,7 +5,7 @@ from .models import Behavior, LogEntry
 # Register your models here.
 @admin.register(Behavior)
 class BehaviorAdmin(admin.ModelAdmin):
-    list_display = ['title']
+    list_display = ['title', 'id']
 
 @admin.register(LogEntry)
 class LogEntryAdmin(admin.ModelAdmin):
