@@ -4,6 +4,7 @@ from .models import Behavior, LogEntry
 
 from datetime import timedelta
 from django.utils import timezone
+import json
 
 # Create your views here.
 def behavior_dashboard(request, behavior_id):
@@ -23,8 +24,8 @@ def behavior_dashboard(request, behavior_id):
 
     context = {
         'behavior': behavior,
-        'quality_data_Y': quality_data,
-        'date_data_X': date_data,
+        'quality_data_Y': json.dumps(quality_data),
+        'date_data_X': json.dumps(date_data),
     }
 
     return render(request, 'tracker/dashboard.html', context)
