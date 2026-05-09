@@ -6,7 +6,11 @@ from datetime import timedelta
 from django.utils import timezone
 import json
 
-# Create your views here.
+def home(request):
+    behaviors = Behavior.objects.all()
+    context = {'behaviors': behaviors}
+    return render(request, 'tracker/home.html', context)
+
 def behavior_dashboard(request, behavior_id):
     behavior = get_object_or_404(Behavior, id=behavior_id)
 
