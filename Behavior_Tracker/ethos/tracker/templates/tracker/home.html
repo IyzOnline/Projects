@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethos</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 2rem;
+            max-width: 900px;
+            margin: auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            background: #52ca70;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .behavior-card {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            box-shadow: 5px 5px 5px grey;
+        }
+        .card-actions{
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+        .btn-outline {
+            border: 1px solid #52ca70;
+            color: #52ca70;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <h1>Behaviors</h1>
+        <a href="#" class="btn">+ Create New Behavior</a>
+    </div>
+
+    <hr>
+
+    {% if behaviors %}
+        {% for behavior in behaviors %}
+            <div class="behavior-card">
+                <h2>{{ behavior.title }}</h2>
+                {% if behavior.description %}
+                    <p>{{ behavior.description }}</p>
+                {% else %}
+                    <p>---</p>
+                {% endif %}
+
+                <div class="card-actions">
+                    <a href="{% url 'tracker:behavior_dashboard' behavior.id %}" class="btn">View Analytics</a>
+                    
+                    <a href="#" class="btn-outline"> Log Today's Entry</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>You have not established any behaviors yet. Begin your praxis</p>
+    {% endif %}
+</body>
+</html>
