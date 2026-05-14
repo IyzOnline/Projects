@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Behavior(models.Model):
-    title = models.TextField(max_length=20)
+    title = models.CharField(max_length=20)
     description = models.TextField(max_length=100, blank=True)
 
     expected_metrics = models.JSONField(default=dict, blank=True)
