@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Establish Behavior | Ethos</title>
+    <style>
+        body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
+        .form-group { margin-bottom: 1rem; }
+        input[type="text"], textarea { width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn { padding: 0.5rem 1rem; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-cancel { padding: 0.5rem 1rem; color: #4b5563; text-decoration: none; margin-left: 1rem; }
+    </style>
+</head>
+<body>
+    <h1>Establish New Behavior</h1>
+    <p>Define the parameters of your new habit.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div>
+            <!-- When the SUBMIT button is pressed, the browser sends the form data to the url defined
+            under action. But since action was not defined, the data is sent to the default of action, which
+            is simply the URL of the current page. Since the URL of the current page is registered to run the
+            create_behavior view, the POST request that has the form data is sent to that view, resulting
+            in the creation of a new Behavior record in the DB.
+            -->
+            <button type="submit" class="btn">Save Behavior</button>
+            <a href="{% url 'tracker:home' %}" class="btn-cancel">Cancel</a>
+        </div>
+    </form>
+</body>
+</html>
