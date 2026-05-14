@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Behavior, LogEntry
+from .forms import BehaviorForm
 
 from datetime import timedelta
 from django.utils import timezone
@@ -33,3 +34,30 @@ def behavior_dashboard(request, behavior_id):
     }
 
     return render(request, 'tracker/dashboard.html', context)
+
+def create_behavior(request):
+    if request.method == 'POST':
+        form = BehaviorForm(request.POST)
+        # request.POST is simply a QueryDict which is a Django object that contains the information
+        # from the forms packaged by the browser and sent to the server. 
+
+        # From what I understand, the BehaviorForm that inherits from forms.ModelForm returns
+        # a Form Object that contains the dictionary of information passed as an argument to BehaviorForm. 
+
+        if form.is_valid():
+            form.save()
+            # form.save() is the only time that a Behavior instance is created,
+            
+            return redirect('tracker:home')
+            # what redirect returns is a HttpResponseRedirect object. What the object contains is simply the
+            # status code 302, and the header for where it should redirect which in this case is '/tracker/'
+    else:
+        form = BehaviorForm()
+        # This creates an empty form for when the user first opens up behavior_form.html
+
+    context = {'form': form}
+    return render(request, 'tracker/behavior_form.html', context)
+    
+def update_behavior(request, behavior_id):
+    behavior = get_object_or_404(Behavior, id=behavior_id)
+    pass
