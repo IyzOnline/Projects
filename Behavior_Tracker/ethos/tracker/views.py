@@ -56,8 +56,23 @@ def create_behavior(request):
         # This creates an empty form for when the user first opens up behavior_form.html
 
     context = {'form': form}
-    return render(request, 'tracker/behavior_form.html', context)
+    return render(request, 'tracker/behavior/create_form.html', context)
     
 def update_behavior(request, behavior_id):
     behavior = get_object_or_404(Behavior, id=behavior_id)
-    pass
+    
+    if request.method == 'POST':
+        form = BehaviorForm(request.POST, instance=behavior)
+
+        if form.is_valid():
+            form.save()
+            redirect('tracker:home')
+    else:
+        form = BehaviorForm(instance=behavior)
+    
+    context = {
+        'form': form,
+        'behavior': behavior,
+    }
+
+    return render(request, 'tracker/behavior/update_form.html', context)
