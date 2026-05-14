@@ -55,7 +55,11 @@
 
     {% if behaviors %}
         {% for behavior in behaviors %}
-            <div class="behavior-card">
+            <div class="behavior-card" style="position: relative;">
+                <a href="{% url 'tracker:update_behavior' behavior.id %}" style="position: absolute; top: 1rem; right: 1rem; text-decoration: none; color: #6b7280; font-size: 0.9rem;">
+                ✎ Edit
+                </a>
+
                 <h2>{{ behavior.title }}</h2>
                 {% if behavior.description %}
                     <p>{{ behavior.description }}</p>
